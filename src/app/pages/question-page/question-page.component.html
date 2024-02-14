@@ -1,0 +1,19 @@
+<div class="question-container">
+  <div class="inner-container">
+    <div class="timer">{{ questionTimer().toFixed(1) }}</div>
+
+    <div class="question-middle">
+      <span>{{ presentQuestion.question }}</span>
+    </div>
+    <div class="question-bottom">
+      <div
+        class="question-option"
+        *ngFor="let option of presentQuestion.options; let i = index"
+        (click)="selectOption(i)"
+      >
+        <span class="option-label"> - </span>
+        <span class="option-option">{{ option }}</span>
+      </div>
+    </div>
+  </div>
+</div>

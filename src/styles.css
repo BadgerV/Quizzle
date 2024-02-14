@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+/* CSS HEX */
+
+:root {
+  --orchid-pink: #e8b4bc;
+  --mint-green: #e9fff9;
+  --background-color: #f6f8ff;
+  --text-color: #272d2d;
+  --black: #000000;
+  --davys-gray: #494949;
+  --hookers-green: #607466;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  color: var(--text-color);
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: black;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.timer {
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 1px solid var(--hookers-green);
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  background-color: var(--hookers-green);
+
+  transition: all 0.2s ease-in-out;
+  color: white;
+}
+
+.timer:hover {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  color: var(--text-color);
+}
