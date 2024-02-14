@@ -1,0 +1,15 @@
+<div class="header-container">
+  <div class="header__left">
+    <span routerLink="">Quizzzle</span>
+  </div>
+  <div class="header__middle">
+    <ul class="header__links">
+      <li routerLink="/start">Take Quiz</li>
+      <li routerLink="">Leaderboard</li>
+    </ul>
+  </div>
+  <div class="header__right">
+    <button class="button" (click)="navigateToAuth(false)">Login</button>
+    <button class="button" (click)="navigateToAuth(true)">Signup</button>
+  </div>
+</div>

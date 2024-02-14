@@ -1,0 +1,19 @@
+<div class="difficulty-page">
+  <div class="inner_container">
+    <div class="timer">{{ timer }}</div>
+    <div class="inner-top-text">Select Difficulty</div>
+
+    <div class="inner-top-options">
+      <div class="inner-top--option" (click)="setQuestionDuration(15)">
+        Easy
+      </div>
+      <div class="inner-top--option" (click)="setQuestionDuration(10)">
+        Medium
+      </div>
+      <div class="inner-top--option" (click)="setQuestionDuration(5)">Hard</div>
+      <div class="inner-top--option" (click)="setQuestionDuration(3)">
+        Extreme
+      </div>
+    </div>
+  </div>
+</div>

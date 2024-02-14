@@ -1,0 +1,39 @@
+.score-page {
+  height: 87dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: min(500px, 95vw);
+}
+
+.inner-container span {
+  text-align: center;
+}
+
+.first-text {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.second-text {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--orchid-pink);
+}
+
+.inner-container button {
+  border-radius: 15px;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--hookers-green);
+  outline: none;
+  background-color: var(--mint-green);
+  cursor: pointer;
+}

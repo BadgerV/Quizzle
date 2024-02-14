@@ -1,0 +1,50 @@
+.difficulty-page {
+  height: 87dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner_container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  position: relative;
+  min-width: min(500px, 90vw);
+  border: 1px solid var(--hookers-green);
+  border-radius: 15px;
+  padding: 1rem;
+  padding-top: 2.5rem;
+}
+
+
+
+.inner-top-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--hookers-green);
+}
+.inner-top-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inner-top--option {
+  border: 1px solid var(--hookers-green);
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.2s ease-in-out;
+
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.inner-top--option:hover {
+  scale: 1.05;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}

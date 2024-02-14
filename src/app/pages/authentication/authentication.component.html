@@ -1,0 +1,83 @@
+<div class="container">
+  <div id="login-form-wrap" *ngIf="!signUp">
+    <h2>{{ signUp ? "Sign Up" : "Login" }}</h2>
+    <form id="login-form" #f="ngForm" (ngSubmit)="login(f)">
+      <p>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+          ngModel
+        />
+      </p>
+      <p>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          required
+          ngModel
+        />
+      </p>
+      <button class="submit" type="submit" [disabled]="isLoading">
+        {{ isLoading ? "Loading ..." : "Login" }}
+      </button>
+    </form>
+    <div id="create-account-wrap">
+      <p>
+        Not a member?
+        <a (click)="toggleSignup()" class="link">{{
+          signUp ? "Log in" : "Create Account"
+        }}</a>
+      </p>
+      <p></p>
+    </div>
+
+    <!--create-account-wrap-->
+  </div>
+  <div id="login-form-wrap" *ngIf="signUp">
+    <h2>{{ signUp ? "Sign Up" : "Login" }}</h2>
+    <span [ngStyle]="{ color: 'red', fontSize: '14px' }">{{
+      errorMessage
+    }}</span>
+    <form id="login-form" #f="ngForm" (ngSubmit)="register(f)">
+      <p>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+          ngModel
+        />
+      </p>
+      <p>
+        <input
+          type="password"
+          id="email"
+          name="password"
+          ngModel
+          placeholder="Password"
+          required
+        />
+      </p>
+      <button class="submit" type="submit" [disabled]="isLoading">
+        {{ isLoading ? "Loading ..." : "Sign up" }}
+      </button>
+    </form>
+    <div id="create-account-wrap">
+      <p>
+        Not a member?
+        <a (click)="toggleSignup()" class="link">{{
+          signUp ? "Log in" : "Create Account"
+        }}</a>
+      </p>
+      <p></p>
+    </div>
+
+    <!--create-account-wrap-->
+  </div>
+</div>
