@@ -8,6 +8,8 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
 import { ScorePageResolverService } from './pages/score-page/score-page-resolver.service';
 import { QuestionResolver } from './pages/question-page/question-page-resolver';
 import { AuthGuard } from './pages/authentication/auth-guard';
+import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-page.component';
+import { LeaderboardResolverService } from './pages/leaderboard-page/leaderboard-resolver.service';
 
 export const routes: Routes = [
   {
@@ -20,6 +22,7 @@ export const routes: Routes = [
     component: StartPageComponent,
     canActivate: [AuthGuard],
   },
+
   {
     path: 'select-difficulty',
     component: SelectDifficultyPageComponent,
@@ -45,5 +48,12 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthenticationComponent,
+  },
+  {
+    path: 'leaders',
+    component: LeaderboardPageComponent,
+    resolve: {
+      data: LeaderboardResolverService,
+    },
   },
 ];
