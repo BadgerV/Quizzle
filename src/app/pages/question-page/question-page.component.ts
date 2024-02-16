@@ -104,13 +104,15 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('workinggngngn');
     if (this.questionTimerSubscription) {
       this.questionTimerSubscription.unsubscribe();
     }
     if (this.alertChangeQuestionSubscription) {
       this.alertChangeQuestionSubscription.unsubscribe();
     }
-
     this.logicService.unsubscribeFromCouter();
+
+    this.logicService.resetScore();
   }
 }

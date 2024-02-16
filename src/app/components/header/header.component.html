@@ -15,4 +15,28 @@
   <div class="header__right" *ngIf="!shouldDisplayAuthButtons">
     <span>Welcome {{ user.displayName }}</span>
   </div>
+
+  <div class="mobile-menu">
+    <img
+      src="../../../assets/menu__icon.svg"
+      alt=""
+      class="mobile-menu-icon"
+      (click)="toggleSidebar()"
+      *ngIf="!isSidebarOpen"
+    />
+    <img
+      src="../../../assets/cancel__icon.svg"
+      alt=""
+      class="mobile-menu-icon"
+      (click)="toggleSidebar()"
+      *ngIf="isSidebarOpen"
+    />
+
+    <div class="mobile-menu--inner" *ngIf="isSidebarOpen">
+      <ul class="header__links__mobile">
+        <li routerLink="/start" (click)="toggleSidebar()">Take Quiz</li>
+        <li routerLink="/leaders" (click)="toggleSidebar()">Leaderboard</li>
+      </ul>
+    </div>
+  </div>
 </div>

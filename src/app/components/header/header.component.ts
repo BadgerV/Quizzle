@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService, User } from '../../pages/services/api.service';
 import { NgIf } from '@angular/common';
+import { ResponsiveService } from '../../pages/services/responsive.service';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,13 @@ import { NgIf } from '@angular/common';
 export class HeaderComponent implements OnInit {
   shouldDisplayAuthButtons: boolean = true;
   user!: User;
+  isSidebarOpen: boolean = false;
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private responsiveService: ResponsiveService
+  ) {}
   navigateToAuth(isTrue: boolean): void {
     this.router.navigate(['/auth'], { queryParams: { data: isTrue } });
   }
@@ -26,5 +32,16 @@ export class HeaderComponent implements OnInit {
         this.user = user;
       } else this.shouldDisplayAuthButtons = true;
     });
+
+    this.responsiveService.isSidebarOpenSubject.subscribe(
+      (isSidebarOpen: boolean) => {
+        this.isSidebarOpen = isSidebarOpen;
+        console.log(isSidebarOpen);
+      }
+    );
+  }
+
+  toggleSidebar() {
+    this.responsiveService.toggleSidebar();
   }
 }

@@ -28,6 +28,12 @@
   gap: 0.5rem;
 }
 
+@media screen and (max-width: 500px) {
+  .question-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
 .question-option {
   display: flex;
   flex-direction: row;

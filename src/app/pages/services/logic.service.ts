@@ -1375,6 +1375,7 @@ export class LogicService {
     level: number = this.anotherQuestionDuration
   ) {
     const timeBonus = 20 - timeAnswered;
+    console.log(timeBonus);
 
     if (question.correctOption === selectedOption) {
       switch (level) {
@@ -1385,10 +1386,10 @@ export class LogicService {
           this.scoreArray.push(timeBonus * 10);
           break;
         case 5:
-          this.scoreArray.push(timeBonus * 20);
+          this.scoreArray.push(timeBonus * 25);
           break;
         case 3:
-          this.scoreArray.push(timeBonus * 30);
+          this.scoreArray.push(timeBonus * 40);
           break;
         default:
           break;
@@ -1400,23 +1401,23 @@ export class LogicService {
 
   temp: number = 0;
 
+  timeCheaterArray: number[] = [];
   checkForCheaters(i: number, time: number) {
-    let timeCheaterArray: number[] = [];
     let realTime = this.anotherQuestionDuration - time;
 
     if (realTime < 1) {
-      timeCheaterArray.push(1);
+      this.timeCheaterArray.push(1);
     }
 
     if (realTime < 0.8) {
-      timeCheaterArray = [...timeCheaterArray, 1, 2];
+      this.timeCheaterArray = [...this.timeCheaterArray, 1, 2];
     }
 
     if (realTime < 0.5) {
-      timeCheaterArray = [...timeCheaterArray, 1, 2, 3, 4];
+      this.timeCheaterArray = [...this.timeCheaterArray, 1, 2, 3, 4];
     }
 
-    if (timeCheaterArray.length >= 7) {
+    if (this.timeCheaterArray.length >= 7) {
       this.scoreArray.splice(0, this.scoreArray.length);
     }
 
