@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, take, throwError } from 'rxjs';
 
 export interface User {
   email: string;
@@ -101,26 +101,31 @@ export class ApiService {
       .get<any[]>(
         'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
       )
-      .subscribe((data) => {
-        let result = Object.values(data);
-
-        const uniqueObjects = Array.from(
-          new Set(result.map((obj) => JSON.stringify(obj)))
-        ).map((str) => JSON.parse(str));
-
-        // Sort the array in descending order based on the score property
-        uniqueObjects.sort((a, b) => b.score - a.score);
-
-        // Pick the top 20 elements
-        const top20 = uniqueObjects.slice(0, 20);
-
-        // Loop through each object in the array
-        for (let i = 0; i < top20.length; i++) {
-          // Convert the 'score' property from string to number
-          top20[i].score = +top20[i].score;
-        }
-
-        this.leaderboardData.next(top20);
+      .pipe(
+        map((data) => this.transformData(data)),
+        take(1) // Ensure the subscription completes after emitting one value
+      )
+      .subscribe((transformedData) => {
+        this.leaderboardData.next(transformedData);
       });
+  }
+
+  private transformData(data: any[]): any[] {
+    let result = Object.values(data);
+    const uniqueObjects = Array.from(
+      new Set(result.map((obj) => JSON.stringify(obj)))
+    ).map((str) => JSON.parse(str));
+
+    // Sort the array in descending order based on the score property
+    uniqueObjects.sort((a, b) => b.score - a.score);
+
+    // Pick the top 20 elements
+    const top20 = uniqueObjects.slice(0, 20);
+
+    // Convert the 'score' property from string to number
+    top20.forEach((obj) => {
+      obj.score = parseFloat(obj.score).toFixed(3);
+    });
+    return top20;
   }
 }

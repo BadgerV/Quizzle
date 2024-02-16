@@ -11,14 +11,13 @@ import { ApiService } from '../services/api.service';
   styleUrl: './leaderboard-page.component.css',
 })
 export class LeaderboardPageComponent implements OnInit {
-  scoresFromDb!: any[];
+  scoresFromDb!: any;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.leaderboardData.subscribe((data: any) => {
-      this.scoresFromDb = data;
-    });
+    this.scoresFromDb = this.route.snapshot.data;
+    console.log(this.scoresFromDb);
   }
 }
 
