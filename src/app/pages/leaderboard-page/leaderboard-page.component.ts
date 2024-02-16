@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { map, take } from 'rxjs';
 
 @Component({
   selector: 'app-leaderboard-page',
@@ -16,8 +17,8 @@ export class LeaderboardPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.scoresFromDb = this.route.snapshot.data;
-    console.log(this.scoresFromDb);
+    const scoresData = this.route.snapshot.data['scores'];
+    this.scoresFromDb = this.apiService.transformData(scoresData);
   }
 }
 

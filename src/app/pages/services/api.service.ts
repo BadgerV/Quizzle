@@ -97,20 +97,12 @@ export class ApiService {
   }
 
   retrieveScoreFromDB() {
-    this.http
-      .get<any[]>(
-        'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
-      )
-      .pipe(
-        map((data) => this.transformData(data)),
-        take(1) // Ensure the subscription completes after emitting one value
-      )
-      .subscribe((transformedData) => {
-        this.leaderboardData.next(transformedData);
-      });
+    return this.http.get<any[]>(
+      'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
+    );
   }
 
-  private transformData(data: any[]): any[] {
+  transformData(data: any[]): any[] {
     let result = Object.values(data);
     const uniqueObjects = Array.from(
       new Set(result.map((obj) => JSON.stringify(obj)))

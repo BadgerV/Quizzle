@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { ApiService } from './pages/services/api.service';
 import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-page.component';
+import { LogicService } from './pages/services/logic.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,16 @@ import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-p
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private logicService: LogicService
+  ) {}
 
   questions!: any;
 
   ngOnInit(): void {
+    this.apiService.retrieveScoreFromDB();
+    this.logicService.resetScore();
     // this.apiService.storeScoreInDB('Badger', '1400');
   }
 }

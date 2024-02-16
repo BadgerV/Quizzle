@@ -36,7 +36,7 @@ export class ScorePageComponent implements OnInit {
     if (this.scoreFromDB < 0) {
       this.score = 'Sorry your score was up to zero😂🤣';
     } else {
-      this.score = this.scoreFromDB;
+      this.score = this.scoreFromDB.toFixed(3);
     }
   }
 

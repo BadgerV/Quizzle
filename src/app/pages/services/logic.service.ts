@@ -1467,7 +1467,7 @@ export class LogicService {
 
   countDownAndProceed() {
     const countdownInterval = interval(100);
-
+    
     this.countdownSubscription = countdownInterval.subscribe(() => {
       if (this.questionDuration >= 0.1) {
         this.questionDuration -= 0.1;
@@ -1503,5 +1503,7 @@ export class LogicService {
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
+
+    this.resetQuestionCountdown()
   }
 }
