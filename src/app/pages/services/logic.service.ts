@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Question } from './question-model';
 import { interval, Subscription } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class LogicService {
   scoreArray: number[] = [];
   questionInterval: any;
   noOfTimesOfSameAnswer: number[] = [];
-  // scoreSubject: Subject<number> = new Subject();
+
+  constructor(private apiService: ApiService) {}
 
   noOfMisses!: number;
 
@@ -287,7 +289,6 @@ export class LogicService {
       correctOption: 'Na',
     },
   ];
-  constructor() {}
 
   resetLevelTimer() {
     this.selectLevelTimer = 10;
@@ -390,7 +391,9 @@ export class LogicService {
   }
 
   getScore() {
-    return this.scoreArray.reduce((acc, prev) => acc + prev);
+    let score = this.scoreArray.reduce((acc, prev) => acc + prev);
+    this.apiService.storeScoreInDB(score.toString());
+    return score;
   }
 
   countDownAndProceed() {

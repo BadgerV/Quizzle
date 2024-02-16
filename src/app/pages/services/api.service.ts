@@ -72,7 +72,10 @@ export class ApiService {
       );
   }
 
-  storeScoreInDB(displayName: string, score: string) {
+  storeScoreInDB(
+    score: string,
+    displayName: string = this.loggedInUser.displayName
+  ) {
     this.http
       .post(
         'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json',
