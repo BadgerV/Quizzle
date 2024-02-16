@@ -96,7 +96,7 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
   selectOption(i: number) {
     this.nextQuestion();
     this.calculateScore(i);
-    this.logicService.checkForCheaters(i);
+    this.logicService.checkForCheaters(i, this.questionTimer());
   }
 
   submitQuestion() {

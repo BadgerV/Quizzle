@@ -1400,37 +1400,24 @@ export class LogicService {
 
   temp: number = 0;
 
-  checkForCheaters(i: number) {
-    const totalQuestions = this.noOfTimesOfSameAnswer.length + 1; // Total questions answered including the current one
-    const totalCorrect = this.scoreArray.filter((score) => score > 0).length; // Total correct answers
+  checkForCheaters(i: number, time: number) {
+    let timeCheaterArray: number[] = [];
+    let realTime = this.anotherQuestionDuration - time;
 
-    // Calculate the success rate
-    const successRate = totalCorrect / totalQuestions;
+    if (realTime < 1) {
+      timeCheaterArray.push(1);
+    }
 
-    // Check if the success rate is significantly lower than chance (e.g., less than 0.25)
-    if (successRate < 0.2) {
-      // Reset the score and penalize the user
-      this.scoreArray.splice(0, this.scoreArray.length); // Reset all scores
+    if (realTime < 0.8) {
+      timeCheaterArray = [...timeCheaterArray, 1, 2];
+    }
 
-      switch (this.anotherQuestionDuration) {
-        case 15:
-          this.scoreArray.push(-100); // Add a significant penalty score
-          break;
-        case 10:
-          this.scoreArray.push(-300); // Add a significant penalty score
+    if (realTime < 0.5) {
+      timeCheaterArray = [...timeCheaterArray, 1, 2, 3, 4];
+    }
 
-          break;
-        case 5:
-          this.scoreArray.push(-1000); // Add a significant penalty score
-
-          break;
-        case 3:
-          this.scoreArray.push(-2000); // Add a significant penalty score
-
-          break;
-        default:
-          break;
-      }
+    if (timeCheaterArray.length >= 7) {
+      this.scoreArray.splice(0, this.scoreArray.length);
     }
 
     if (this.noOfTimesOfSameAnswer.length === 0) {
@@ -1460,14 +1447,18 @@ export class LogicService {
   }
 
   getScore() {
-    let score = this.scoreArray.reduce((acc, prev) => acc + prev);
+    console.log(this.scoreArray);
+    let score = 0;
+    if (this.scoreArray.length > 0) {
+      score = this.scoreArray.reduce((acc, prev) => acc + prev);
+    }
     this.apiService.storeScoreInDB(score.toString());
     return score;
   }
 
   countDownAndProceed() {
     const countdownInterval = interval(100);
-    
+
     this.countdownSubscription = countdownInterval.subscribe(() => {
       if (this.questionDuration >= 0.1) {
         this.questionDuration -= 0.1;
@@ -1504,6 +1495,6 @@ export class LogicService {
       this.countdownSubscription.unsubscribe();
     }
 
-    this.resetQuestionCountdown()
+    this.resetQuestionCountdown();
   }
 }

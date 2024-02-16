@@ -85,15 +85,19 @@ export class ApiService {
     score: string,
     displayName: string = this.loggedInUser.displayName
   ) {
-    this.http
-      .post(
-        'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json',
-        {
-          displayName: displayName,
-          score: score,
-        }
-      )
-      .subscribe((result) => console.log(result));
+    if (+score > 0) {
+      this.http
+        .post(
+          'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json',
+          {
+            displayName: displayName,
+            score: score,
+          }
+        )
+        .subscribe((result) => console.log(result));
+    } else {
+      return;
+    }
   }
 
   retrieveScoreFromDB() {
