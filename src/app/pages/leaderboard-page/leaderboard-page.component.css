@@ -1,0 +1,15 @@
+table {
+  width: 300px; /* Adjust as needed */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  width: 200px; /* Adjust as needed */
+}

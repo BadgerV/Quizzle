@@ -3,10 +3,6 @@ import { LogicService } from '../services/logic.service';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
 
-// export class AuthGuard {
-//   constructor(private logicService: LogicService) {}
-
-// }
 
 export const AuthGuard = () => {
   let apiService = inject(ApiService);
@@ -14,7 +10,7 @@ export const AuthGuard = () => {
 
   let user = apiService.getUser();
 
-  if (!!user) {
+  if (user.email !== '' || user.displayName !== '') {
     return true;
   } else {
     router.navigate(['auth']);

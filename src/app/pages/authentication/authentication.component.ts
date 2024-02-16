@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, DoCheck, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ApiService } from '../services/api.service';
+import { ApiService, User } from '../services/api.service';
 import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -43,18 +43,19 @@ export class AuthenticationComponent implements OnInit {
   register(f: NgForm) {
     this.isLoading = true;
     let form = f.form.value;
-    this.apiService.signup(form.email, form.password).subscribe(
-      (result) => {
-        if (result.email) {
-          console.log(result);
-          this.apiService.setUser(result.email);
-          this.router.navigate(['']);
+    this.apiService
+      .signup(form.email, form.password, form.displayName)
+      .subscribe(
+        (result) => {
+          if (result.email) {
+            this.apiService.setUser(result.displayName, result.email);
+            this.router.navigate(['']);
+          }
+        },
+        (error) => {
+          this.errorMessage = 'Something went wrong. Please try again';
         }
-      },
-      (error) => {
-        this.errorMessage = 'Something went wrong. Please try again';
-      }
-    );
+      );
     this.isLoading = false;
     f.reset();
   }
@@ -64,9 +65,19 @@ export class AuthenticationComponent implements OnInit {
     let form = f.form.value;
     console.log(form);
 
-    this.apiService.login(form.email, form.password).subscribe((result) => {
-      console.log(result);
-    });
+    this.apiService.login(form.email, form.password).subscribe(
+      (result: any) => {
+        console.log(result);
+        if (result.displayName) {
+          this.apiService.setUser(result.displayName, result.email);
+          this.router.navigate(['']);
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.errorMessage = 'Something went wrong. Please try again';
+      }
+    );
     this.isLoading = false;
     f.reset();
   }

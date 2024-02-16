@@ -1,0 +1,13 @@
+<div class="leaderboard-container">
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Score</th>
+    </tr>
+    <tr *ngFor="let scoreAndName of scoresFromDb; let i = index">
+      <td>No {{ i + 1 }}.</td>
+      <td>{{ scoreAndName.displayName }}</td>
+      <td>{{ scoreAndName.score }}</td>
+    </tr>
+  </table>
+</div>
