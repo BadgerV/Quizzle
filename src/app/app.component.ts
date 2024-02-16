@@ -17,9 +17,7 @@ export class AppComponent implements OnInit {
   questions!: any;
 
   ngOnInit(): void {
-    console.log('working');
     this.apiService.retrieveScoreFromDB();
-
     // this.apiService.storeScoreInDB('Badger', '1400');
   }
 }

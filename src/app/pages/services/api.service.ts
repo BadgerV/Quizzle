@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 
 export interface User {
   email: string;
@@ -20,6 +20,9 @@ export class ApiService {
     displayName: '',
   };
 
+  userSubject: Subject<User> = new Subject();
+  leaderboardData: Subject<any[]> = new Subject();
+
   getUser() {
     return this.loggedInUser;
   }
@@ -27,13 +30,11 @@ export class ApiService {
   setUser(displayName: string, email: string) {
     this.loggedInUser.displayName = displayName;
     this.loggedInUser.email = email;
-
-    console.log(this.loggedInUser);
   }
 
   login(email: string, password: string): Observable<any> {
     return this.http
-      .post(
+      .post<User>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDwvhi6doLjJLtIB05D7LeRuHbu6G0NP1E',
         {
           email,
@@ -42,6 +43,10 @@ export class ApiService {
         }
       )
       .pipe(
+        map((user: User) => {
+          this.userSubject.next(user);
+          return user;
+        }),
         catchError((error) => {
           // console.log(error);
           return throwError(error);
@@ -55,7 +60,7 @@ export class ApiService {
     displayName: string
   ): Observable<any> {
     return this.http
-      .post(
+      .post<User>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDwvhi6doLjJLtIB05D7LeRuHbu6G0NP1E',
         {
           email: email,
@@ -65,6 +70,10 @@ export class ApiService {
         }
       )
       .pipe(
+        map((user: User) => {
+          this.userSubject.next(user);
+          return user;
+        }),
         catchError((error) => {
           console.log(error);
           return throwError(error);
@@ -88,8 +97,30 @@ export class ApiService {
   }
 
   retrieveScoreFromDB() {
-    return this.http.get(
-      'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
-    );
+    this.http
+      .get<any[]>(
+        'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
+      )
+      .subscribe((data) => {
+        let result = Object.values(data);
+
+        const uniqueObjects = Array.from(
+          new Set(result.map((obj) => JSON.stringify(obj)))
+        ).map((str) => JSON.parse(str));
+
+        // Sort the array in descending order based on the score property
+        uniqueObjects.sort((a, b) => b.score - a.score);
+
+        // Pick the top 20 elements
+        const top20 = uniqueObjects.slice(0, 20);
+
+        // Loop through each object in the array
+        for (let i = 0; i < top20.length; i++) {
+          // Convert the 'score' property from string to number
+          top20[i].score = +top20[i].score;
+        }
+
+        this.leaderboardData.next(top20);
+      });
   }
 }

@@ -1,15 +1,28 @@
+/* CSS for leaderboard styling */
+.leaderboard-container {
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding to the container */
+}
+
 table {
-  width: 300px; /* Adjust as needed */
-  border-collapse: collapse;
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse; /* Collapse the border spacing */
 }
 
 th,
 td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  padding: 10px; /* Add padding to table cells */
+  border: 1px solid #dddddd; /* Add border to cells */
+  text-align: left; /* Align text to the left */
 }
 
 th {
-  width: 200px; /* Adjust as needed */
+  background-color: #f2f2f2; /* Light gray background for table header */
+}
+
+/* CSS for leaderboard text */
+.leaderboard-title {
+  text-align: center; /* Center the text */
+  font-size: 24px; /* Set font size */
+  margin-bottom: 20px; /* Add margin below the text */
 }

@@ -87,6 +87,11 @@
   outline: none;
 }
 
+.header__right span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 .button:focus {
   outline: none;
   border: 2px solid var(--text-color);
