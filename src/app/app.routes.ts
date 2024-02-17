@@ -9,7 +9,7 @@ import { ScorePageResolverService } from './pages/score-page/score-page-resolver
 import { QuestionResolver } from './pages/question-page/question-page-resolver';
 import { AuthGuard } from './pages/authentication/auth-guard';
 import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-page.component';
-import { LeaderboardResolverService } from './pages/leaderboard-page/leaderboard-resolver.service';
+import { LeaderboardResolver } from './pages/leaderboard-page/leaderboard-resolver.service';
 
 export const routes: Routes = [
   {
@@ -53,7 +53,7 @@ export const routes: Routes = [
     path: 'leaders',
     component: LeaderboardPageComponent,
     resolve: {
-      data: LeaderboardResolverService,
+      scores: LeaderboardResolver,
     },
   },
 ];

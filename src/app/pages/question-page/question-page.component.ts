@@ -46,19 +46,21 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
     this.presentQuestion = this.questions[this.presentQuestionNumber];
 
     //subscribe to the question time
-    this.logicService.questionTimerChanged.subscribe((timer) => {
-      this.questionTimer.set(timer);
-    });
+    this.questionTimerSubscription =
+      this.logicService.questionTimerChanged.subscribe((timer) => {
+        this.questionTimer.set(timer);
+      });
 
     //begin the question timer
     this.logicService.countDownAndProceed();
 
     //subscribe to the alert of changing questions
-    this.logicService.alertToChangeQuestion.subscribe((bool) => {
-      if (bool) {
-        this.nextQuestion();
-      }
-    });
+    this.alertChangeQuestionSubscription =
+      this.logicService.alertToChangeQuestion.subscribe((bool) => {
+        if (bool) {
+          this.nextQuestion();
+        }
+      });
   }
 
   nextQuestion() {
@@ -92,9 +94,9 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
     );
   }
   selectOption(i: number) {
-    this.nextQuestion();
     this.calculateScore(i);
-    this.logicService.checkForCheaters(i);
+    this.logicService.checkForCheaters(i, this.questionTimer());
+    this.nextQuestion();
   }
 
   submitQuestion() {
@@ -108,7 +110,8 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
     if (this.alertChangeQuestionSubscription) {
       this.alertChangeQuestionSubscription.unsubscribe();
     }
-
     this.logicService.unsubscribeFromCouter();
+
+    this.logicService.resetScore();
   }
 }

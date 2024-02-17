@@ -1,13 +1,16 @@
 .container {
   height: 87dvh;
+  max-height: 87dvh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 #login-form-wrap {
   background-color: #fff;
-  width: 35%;
+  width: min(90vw, 500px);
   margin: 30px auto;
   text-align: center;
   padding: 20px 0 0 0;
@@ -31,9 +34,11 @@ input {
   box-sizing: border-box;
   width: 100%;
   outline: none;
-  height: 3rem;
+  height: 2.5rem;
   line-height: 60px;
   border-radius: 5px;
+
+  font-size: 0.9rem;
 }
 
 input[type="text"],
@@ -105,6 +110,8 @@ input[type="password"]:valid ~ .validation span:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 2.5rem;
+  font-size: 0.9rem;
 }
 
 #create-account-wrap {
@@ -131,7 +138,6 @@ input[type="password"]:valid ~ .validation span:last-child {
   margin-top: 1rem;
 }
 
-
 .link {
-    cursor: pointer;
+  cursor: pointer;
 }

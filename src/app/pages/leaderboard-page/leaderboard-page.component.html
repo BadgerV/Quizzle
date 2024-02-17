@@ -1,13 +1,19 @@
 <div class="leaderboard-container">
+  <h2 class="leaderboard-title">Leaderboard</h2>
   <table>
-    <tr>
-      <th>Name</th>
-      <th>Score</th>
-    </tr>
-    <tr *ngFor="let scoreAndName of scoresFromDb; let i = index">
-      <td>No {{ i + 1 }}.</td>
-      <td>{{ scoreAndName.displayName }}</td>
-      <td>{{ scoreAndName.score }}</td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let scoreAndName of scoresFromDb; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ scoreAndName.displayName }}</td>
+        <td>{{ scoreAndName.score }}</td>
+      </tr>
+    </tbody>
   </table>
 </div>

@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { LogicService } from '../services/logic.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-score-page',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './score-page.component.html',
   styleUrl: './score-page.component.css',
 })
 export class ScorePageComponent implements OnInit {
-  score!: number;
+  score!: number | string;
+
+  scoreFromDB! : number;
 
   navigationExtras = {
     queryParams: {},
@@ -28,7 +31,13 @@ export class ScorePageComponent implements OnInit {
     //   this.router.navigate(['']);
     // }
 
-    this.score = this.route.snapshot.data['score'];
+    this.scoreFromDB = this.route.snapshot.data['score'];
+
+    if (this.scoreFromDB < 0) {
+      this.score = 'Sorry your score was up to zero😂🤣';
+    } else {
+      this.score = this.scoreFromDB.toFixed(3);
+    }
   }
 
   navigateToHomepage() {
@@ -37,7 +46,7 @@ export class ScorePageComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.logicService.resetScore();
-    console.log('score page destoryed');
-    this.router.navigate([''], this.navigationExtras);
+
+    this.router.navigate(['/leaders'], this.navigationExtras);
   }
 }
