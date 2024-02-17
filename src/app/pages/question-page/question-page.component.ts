@@ -94,9 +94,9 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
     );
   }
   selectOption(i: number) {
-    this.nextQuestion();
     this.calculateScore(i);
     this.logicService.checkForCheaters(i, this.questionTimer());
+    this.nextQuestion();
   }
 
   submitQuestion() {
@@ -104,7 +104,6 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('workinggngngn');
     if (this.questionTimerSubscription) {
       this.questionTimerSubscription.unsubscribe();
     }

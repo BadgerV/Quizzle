@@ -1375,8 +1375,6 @@ export class LogicService {
     level: number = this.anotherQuestionDuration
   ) {
     const timeBonus = 20 - timeAnswered;
-    console.log(timeBonus);
-
     if (question.correctOption === selectedOption) {
       switch (level) {
         case 15:
@@ -1397,6 +1395,7 @@ export class LogicService {
     } else {
       this.scoreArray.push(-2 * timeAnswered);
     }
+
   }
 
   temp: number = 0;
@@ -1405,33 +1404,24 @@ export class LogicService {
   checkForCheaters(i: number, time: number) {
     let realTime = this.anotherQuestionDuration - time;
 
+    if (realTime > 1) {
+      this.timeCheaterArray.splice(0, this.timeCheaterArray.length);
+    }
+
     if (realTime < 1) {
       this.timeCheaterArray.push(1);
     }
 
-    if (realTime < 0.8) {
+    if (realTime < 0.5) {
       this.timeCheaterArray = [...this.timeCheaterArray, 1, 2];
     }
-
-    if (realTime < 0.5) {
-      this.timeCheaterArray = [...this.timeCheaterArray, 1, 2, 3, 4];
+    if (realTime < 0.3) {
+      this.timeCheaterArray = [...this.timeCheaterArray, 1, 2, 3, 4, 5, 6, 7];
     }
 
-    if (this.timeCheaterArray.length >= 7) {
+    if (this.timeCheaterArray.length >= 10) {
       this.scoreArray.splice(0, this.scoreArray.length);
-    }
-
-    if (this.noOfTimesOfSameAnswer.length === 0) {
-      this.noOfTimesOfSameAnswer.push(i);
-    } else if (this.noOfTimesOfSameAnswer[0] === i) {
-      this.noOfTimesOfSameAnswer.push(i);
-    } else {
-      this.noOfTimesOfSameAnswer.splice(0, this.noOfTimesOfSameAnswer.length);
-    }
-
-    if (this.noOfTimesOfSameAnswer.length >= 5) {
-      this.scoreArray.slice(0, Math.floor(this.scoreArray.length / 2));
-      this.scoreArray.push(-300);
+      this.timeCheaterArray.splice(0, this.timeCheaterArray.length);
     }
   }
 
