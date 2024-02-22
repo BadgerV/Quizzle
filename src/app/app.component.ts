@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.retrieveScoreFromDB();
     this.logicService.resetScore();
-    // this.apiService.storeScoreInDB('Badger', '1400');
+
     this.responsiveService.isSidebarOpenSubject.subscribe(
       (isSidebarOpen: boolean) => {
         this.isSidebarOpen = isSidebarOpen;

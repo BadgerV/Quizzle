@@ -1395,7 +1395,6 @@ export class LogicService {
     } else {
       this.scoreArray.push(-2 * timeAnswered);
     }
-
   }
 
   temp: number = 0;

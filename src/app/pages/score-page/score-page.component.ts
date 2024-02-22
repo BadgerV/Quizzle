@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
 export class ScorePageComponent implements OnInit {
   score!: number | string;
 
-  scoreFromDB! : number;
+  scoreFromDB!: number;
 
   navigationExtras = {
     queryParams: {},
@@ -27,16 +27,12 @@ export class ScorePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // if (this.logicService.getLevel() !== 3) {
-    //   this.router.navigate(['']);
-    // }
-
     this.scoreFromDB = this.route.snapshot.data['score'];
 
     if (this.scoreFromDB < 0) {
       this.score = 'Sorry your score was up to zero😂🤣';
     } else {
-      this.score = this.scoreFromDB.toFixed(3);
+      this.score = Math.ceil(this.scoreFromDB);
     }
   }
 
