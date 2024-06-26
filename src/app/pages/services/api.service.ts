@@ -88,7 +88,7 @@ export class ApiService {
     if (+score > 0) {
       this.http
         .post(
-          'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json',
+          'https://quiz-app-184a5-default-rtdb.firebaseio.com/leaderboard.json',
           {
             displayName: displayName,
             score: score,
@@ -101,9 +101,12 @@ export class ApiService {
   }
 
   retrieveScoreFromDB() {
-    return this.http.get<any[]>(
-      'https://quiz-app-d3777-default-rtdb.firebaseio.com/leaderboard.json'
+    const scores  = this.http.get<any[]>(
+      'https://quiz-app-184a5-default-rtdb.firebaseio.com/leaderboard.json'
     );
+
+    console.log(scores)
+    return scores
   }
 
   transformData(data: any[]): any[] {
