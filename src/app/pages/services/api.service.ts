@@ -101,12 +101,11 @@ export class ApiService {
   }
 
   retrieveScoreFromDB() {
-    const scores  = this.http.get<any[]>(
+    const scores = this.http.get<any[]>(
       'https://quiz-app-184a5-default-rtdb.firebaseio.com/leaderboard.json'
     );
 
-    console.log(scores)
-    return scores
+    return scores;
   }
 
   transformData(data: any[]): any[] {
@@ -126,5 +125,11 @@ export class ApiService {
       obj.score = parseFloat(obj.score).toFixed(3);
     });
     return top20;
+  }
+
+  getRandomQuestionsFromAPI() {
+    return this.http.get<any[]>(
+      'https://opentdb.com/api.php?amount=20&category=9&difficulty=easy&type=multiple'
+    );
   }
 }

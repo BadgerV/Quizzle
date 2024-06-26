@@ -7,10 +7,9 @@ import { LogicService } from '../services/logic.service';
 @Injectable({
   providedIn: 'root',
 })
-
 export class QuestionResolver implements Resolve<Question[]> {
   constructor(private logicService: LogicService) {}
-  resolve(): Observable<Question[]> | Promise<Question[]> | Question[] {
+  resolve(): Observable<Question[]> | Promise<Question[]> | Question[] | any {
     return this.logicService.getRandomQuestions();
   }
 }

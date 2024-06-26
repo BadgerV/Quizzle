@@ -30,6 +30,7 @@ export class QuestionPageComponent implements OnInit, OnDestroy {
 
   presentQuestion!: Question;
   presentQuestionNumber: number = 0;
+  routeSubscription: any;
 
   constructor(
     private route: ActivatedRoute,
